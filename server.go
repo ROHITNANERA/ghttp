@@ -5,7 +5,7 @@ import (
 	"net"
 )
 
-func StartServer(addr string) error {
+func StartServer(addr string, router *Router) error {
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		return err
@@ -19,6 +19,6 @@ func StartServer(addr string) error {
 			continue
 		}
 		// handle connections conccurrently
-		go handleConnection(conn)
+		go handleConnection(conn, router)
 	}
 }

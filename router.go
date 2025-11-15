@@ -19,7 +19,7 @@ func (r *Router) Handle(method, path string, handler Handler) {
 }
 
 // route request to the handler
-func (r *Router) Route(req *Request) (Handler, bool) {
+func (r *Router) Route(req Request) (Handler, bool) {
 	key := req.Method + " " + req.Path
 	handler, exists := r.routes[key]
 	return handler, exists
