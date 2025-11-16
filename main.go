@@ -9,6 +9,11 @@ import (
 func main() {
 	// Start the server
 	router := NewRouter()
+	// use middlewares
+	router.Use(Logger)
+	router.Use(Recovery)
+
+	// setup paths (routes) to the actual endpoiunt logic
 	setupRoutes(router)
 	if err := Run(":8080", router); err != nil {
 		log.Fatal("Server failed:", err)
@@ -24,4 +29,5 @@ func setupRoutes(r *Router) {
 	r.Handle("GET", "/", homeHandler)
 	r.Handle("GET", "/health", healthHandler)
 	r.Handle("POST", "/echo", echoHandler)
+	r.Handle("GET", "/panic", panicTest)
 }

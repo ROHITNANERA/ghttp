@@ -94,7 +94,6 @@ func parseRequest(conn net.Conn) (Request, error) {
 
 // write Response to connection
 func writeResponse(conn net.Conn, res Response) {
-	fmt.Println("we are in write Response")
 	statusTxt := statusText(res.StatusCode)
 	headers := res.Headers
 	if headers == nil {

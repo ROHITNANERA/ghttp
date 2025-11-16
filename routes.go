@@ -13,6 +13,9 @@ func healthHandler(req Request) Response {
 		Body:       "OK\n",
 	}
 }
+func panicTest(req Request) Response {
+	panic("Boom")
+}
 
 func echoHandler(req Request) Response {
 	body := "Echo: "
