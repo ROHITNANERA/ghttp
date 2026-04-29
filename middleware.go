@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -23,10 +24,14 @@ func Logger(next Handler) Handler {
 
 // Recovery to catch all the panics
 func Recovery(next Handler) Handler {
-	return func(r Request) Response {
+	return func(r Request) (res Response) {
 		defer func() {
-			if r := recover(); r != nil {
-				fmt.Printf("[PANIC] Recovered: %v\n", r)
+			if err := recover(); err != nil {
+				fmt.Printf("[PANIC] Recovered: %v\n", err)
+				res = Response{
+					StatusCode: 500,
+					Body:       strings.NewReader("Internal Server Error\n"),
+				}
 			}
 		}()
 		return next(r)

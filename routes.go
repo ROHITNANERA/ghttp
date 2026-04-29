@@ -1,16 +1,21 @@
 package main
 
+import (
+	"fmt"
+	"strings"
+)
+
 func homeHandler(req Request) Response {
 	return Response{
 		StatusCode: 200,
-		Body:       "Welcome to GHTTP -- HTTP server from raw TCP in Go!",
+		Body:       strings.NewReader("Welcome to GHTTP -- HTTP server from raw TCP in Go!"),
 	}
 }
 
 func healthHandler(req Request) Response {
 	return Response{
 		StatusCode: 200,
-		Body:       "OK\n",
+		Body:       strings.NewReader("OK\n"),
 	}
 }
 func panicTest(req Request) Response {
@@ -27,6 +32,15 @@ func echoHandler(req Request) Response {
 	body += "\n"
 	return Response{
 		StatusCode: 200,
-		Body:       body,
+		Body:       strings.NewReader(body),
+	}
+}
+
+func userProfileHandler(req Request) Response {
+	id := req.PathParams["id"]
+	body := fmt.Sprintf("User Profile for ID: %s\n", id)
+	return Response{
+		StatusCode: 200,
+		Body:       strings.NewReader(body),
 	}
 }

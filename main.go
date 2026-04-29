@@ -30,4 +30,5 @@ func setupRoutes(r *Router) {
 	r.Handle("GET", "/health", healthHandler)
 	r.Handle("POST", "/echo", echoHandler)
 	r.Handle("GET", "/panic", panicTest)
+	r.Handle("GET", "/users/:id", userProfileHandler)
 }
